@@ -200,65 +200,62 @@ async function sendTransaction() {
 
 3. 拼接合约结构
 
-4. ```
+     ```
      const deployedContract = myContract.deploy({
            data: '0x' + bytecode,
            arguments: [1],//说明合约构造函数需要参数 并且值为一
        });
-   ```
+     ```
 
-   开始交易
+4. 开始交易
 
-   ```
-    try {
-           // Deploy the contract to the Ganache network
-           const tx = await deployedContract.send({
-               from: defaultAccount,
-               gas:1000000,
-               gasPrice: 10000000000,
-           });
-   ```
+     ```
+     try {
+            // Deploy the contract to the Ganache network
+            const tx = await deployedContract.send({
+                from: defaultAccount,
+                gas:1000000,
+                gasPrice: 10000000000,
+            });
+     ```
 
-5. tx会返回合约地址
+5. 返回合约地址
 
-   ```
-   tx.options.address
-   ```
+     ```
+      tx.options.address
+     ```
 
-   ```
-   // For simplicity we use `web3` package here. However, if you are concerned with the size,
-   //	you may import individual packages like 'web3-eth', 'web3-eth-contract' and 'web3-providers-http'.
-   const {Web3} = require('web3'); //  web3.js has native ESM builds and (`import Web3 from 'web3'`)
-   const fs = require('fs');
-   const path = require('path');
-   
-   // Set up a connection to the Ethereum network
-   const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
-   web3.eth.Contract.handleRevert = true;
-   
-   //Read the bytecode from the file system
-   const bytecodePath = path.join(__dirname, 'MyContractBytecode.bin');
-   const bytecode = fs.readFileSync(bytecodePath, 'utf8');
-   
-   // Create a new contract object using the ABI and bytecode
-   const abi = require('./MyContractAbi.json');
-   const myContract = new web3.eth.Contract(abi);
-   
-   
-   async function deploy() {
-       const providersAccounts = await web3.eth.getAccounts();
-       const defaultAccount = providersAccounts[0];
-       console.log('deployer account:', defaultAccount);
-   
-       const deployedContract = myContract.deploy({
+      // For simplicity we use `web3` package here. However, if you are concerned with the size,
+       //	you may import individual packages like 'web3-eth', 'web3-eth-contract' and 'web3-providers-http'.
+       const {Web3} = require('web3'); //  web3.js has native ESM builds and (`import Web3 from 'web3'`)
+       const fs = require('fs');
+       const path = require('path');
+    
+       // Set up a connection to the Ethereum network
+       const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+       web3.eth.Contract.handleRevert = true;
+    
+       //Read the bytecode from the file system
+       const bytecodePath = path.join(__dirname, 'MyContractBytecode.bin');
+       const bytecode = fs.readFileSync(bytecodePath, 'utf8');
+    
+       // Create a new contract object using the ABI and bytecode
+       const abi = require('./MyContractAbi.json');
+       const myContract = new web3.eth.Contract(abi);
+    
+       async function deploy() {
+           const providersAccounts = await web3.eth.getAccounts();
+           const defaultAccount = providersAccounts[0];
+           console.log('deployer account:', defaultAccount);
+      const deployedContract = myContract.deploy({
            data: '0x' + bytecode,
            arguments: [1],
        });
-   
+       
        //optionally, estimate the gas that will be used for development and log it
        //const gas = await deployedContract.estimateGas({from: defaultAccount,});
        // console.log('estimated gas:', gas);
-   
+       
        try {
            // Deploy the contract to the Ganache network
            const tx = await deployedContract.send({
@@ -267,45 +264,43 @@ async function sendTransaction() {
                gasPrice: 10000000000,
            });
            console.log('Contract deployed at address: ' + tx.options.address);
-   
+       
            // Write the Contract address to a new file
            const deployedAddressPath = path.join(__dirname, 'MyContractAddress.bin');
            fs.writeFileSync(deployedAddressPath, tx.options.address);
        } catch (error) {
            //console.error(error);
        }
-   
-   }
-   
-   (async ()=>{
-       await deploy();
-   })();
-   ```
+          }
+    
+       (async ()=>{
+           await deploy();
+       })();
+       
 
-   ![](C:\Users\qjy\Desktop\Ethereum-Learning-Notes\day04_web3js_4.0\assets\5.png)
-
-
-
-   ## 3 与合约交互
+ ![](C:\Users\qjy\Desktop\Ethereum-Learning-Notes\day04_web3js_4.0\assets\5.png)
+##   3 与合约交互
 
    1. 根据abi和合约地址来实例化合约对象
 
    2. 调用合约方法myNumber()
 
-   3. ```
-      const myNumber = await myContract.methods.myNumber().call();
-              console.log('my number value: ' + myNumber);
+      ```
+        const myNumber = await myContract.methods.myNumber().call();
+                    console.log('my number value: ' + myNumber);
       ```
 
-      调用setMyNumber()并发送给合约
+   3. 调用setMyNumber()并发送给合约
 
       ```
-      const receipt = await myContract.methods.setMyNumber(myNumber + 1n).send({
-          from: defaultAccount,
-          gas: 1000000,
-          gasPrice: 10000000000,
-      });
+        const receipt = await myContract.methods.setMyNumber(myNumber + 1n).send({
+            from: defaultAccount,
+            gas: 1000000,
+            gasPrice: 10000000000,
+        });
       ```
+
+## 4案例
 
    ```
    const { Web3 } = require('web3'); //  web3.js has native ESM builds and (`import Web3 from 'web3'`)
