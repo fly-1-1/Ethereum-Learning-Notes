@@ -74,6 +74,7 @@ contract WETH {
     }
 
     //transferFrom:当向另外一个合约地址存款时，对方合约必须调用 transferFrom 才可以把 Token拿到它自己的合约中。
+   // msg.sender;是调用函数的账户
     function transferFrom( address src,address toAds_,uint256 amount_) public returns (bool) {
         require(balanceOf[src] >= amount_, "error amount");
 
