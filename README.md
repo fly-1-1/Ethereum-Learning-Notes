@@ -14,4 +14,4 @@ Here are notes on Ethereum learning.
 
 ## day 6 ERC20 WETH
 
-## day 7 ETH钱包 多钱钱包 TodoList bytesToStr
+## day 7 ETH钱包 多签钱包 TodoList bytesToStr
