@@ -11,3 +11,7 @@ Here are notes on Ethereum learning.
 ## day 4 Web3@4.x solc@8.x 联合部署智能合约
 
 ## day 5 Solidity 提高 实战项目一
+
+## day 6 ERC20 WETH
+
+## day 7 ETH钱包 多钱钱包 TodoList bytesToStr
