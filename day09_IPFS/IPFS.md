@@ -36,7 +36,7 @@ ipfs get <cid>
 ### 5 查看文件
 
 ```
-
+ipfs cat <cid>
 ```
 
 ### 6 固定数据
