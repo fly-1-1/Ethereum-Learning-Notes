@@ -69,6 +69,32 @@ unpined <cid>
 ipfs repo gc
 ```
 
+### 9 files 命令
+
+#### 1 创建文件夹
+
+```
+ipfs files mkdir /box 
+```
+
+![1700768353539](assets/1700768353539.png)
+
+#### 2 create
+
+```
+ipfs files write --create /box/1.txt 
+```
+
+![1700768611021](assets/1700768611021.png)
+
+#### 3 快速
+
+```
+ipfs files cp  /ipfs/<cid>  /box/<dirname>
+```
+
+
+
 # 二 与IPFS网络交互
 
 ## 1 上线节点
